@@ -20,6 +20,15 @@ TagManager:
   - CHARISMAK
   - FLYK
   - INTELLIGENCEK
+  - ANTIMAGIC
+  - INVISIBLE
+  - REMOVE
+  - ADD
+  - RESET
+  - MAGIC_DOOR
+  - CUBE
+  - SPHERE
+  - CAPSULE
   layers:
   - Default
   - TransparentFX
@@ -29,9 +38,9 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - CUBE
+  - SPHERE
+  - CAPSULE
   - 
   - 
   - 
