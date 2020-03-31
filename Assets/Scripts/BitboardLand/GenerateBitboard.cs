@@ -23,7 +23,21 @@ public class GenerateBitboard : MonoBehaviour
             }
         }
         PrintDirtbitBoard();
+        Debug.Log("Number of Dirt Tiles : " + CountDirtTile());
         InvokeRepeating("PlantTree", 1, 1);   // Looks for dirt time after every 1 second and plant tree on it if found
+    }
+
+    int CountDirtTile()
+    {
+        int count = 0;
+
+        long dirtTile = dirtBitBoard;
+        while (dirtTile != 0)
+        {
+            dirtTile &= dirtTile - 1;
+            ++count;
+        }
+        return count;
     }
 
     void PlantTree()
@@ -32,7 +46,6 @@ public class GenerateBitboard : MonoBehaviour
         int col = UnityEngine.Random.Range(0, 8);
         if (GetCellStateDirt(row, col))
         {
-            Debug.Log(tile[row * 8 + col].tag);
             GameObject treeObj = Instantiate(tree, new Vector3(row, 0, col), Quaternion.identity);
             treeObj.transform.parent = tile[row * 8 + col].transform;
         }
