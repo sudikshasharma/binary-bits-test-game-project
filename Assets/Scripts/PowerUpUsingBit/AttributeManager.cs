@@ -14,11 +14,11 @@ public class AttributeManager : MonoBehaviour
 
 
     public Text attributeDisplay;
-    public int attributes = 0;
+    static public int attributes = 0;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "MAGIC")
+        if (other.gameObject.tag == "MAGIC")
         {
             attributes |= MAGIC;
         }
@@ -44,7 +44,7 @@ public class AttributeManager : MonoBehaviour
         }
         else if (other.gameObject.tag == "REMOVE")
         {
-            attributes &= ~ (INTELLIGENCE | MAGIC);
+            attributes &= ~(INTELLIGENCE | MAGIC);
         }
         else if (other.gameObject.tag == "ADD")
         {
@@ -60,15 +60,15 @@ public class AttributeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector3 screenPoint = Camera.main.WorldToScreenPoint(this.transform.position);
-        attributeDisplay.transform.position = screenPoint + new Vector3(0,-50,0);
+        attributeDisplay.transform.position = screenPoint + new Vector3(0, -50, 0);
         attributeDisplay.text = Convert.ToString(attributes, 2).PadLeft(8, '0');
     }
-       
+
 }
