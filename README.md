@@ -1,2 +1,2 @@
-# game-mathematics-test-project
-A unity project implementing various concepts of mathematics in game development
+# binary-bits-test-game-project
+A unity project implementing various concepts of binary bits in game development
