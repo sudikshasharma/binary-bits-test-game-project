@@ -40,13 +40,13 @@ public class GenerateBitboard : MonoBehaviour
 
     bool GetCellStateDirt(int row, int col)
     {
-        long dirtBit = 1 << (row * 8 + col);
+        long dirtBit = 1L << (row * 8 + col);
         return ((dirtBitBoard & dirtBit) != 0);
     }
 
     void SetDirtBitBoard(int row, int col)
     {
-        long dirtBit = 1 << (row * 8 + col);
+        long dirtBit = 1L << (row * 8 + col);
         dirtBitBoard |= dirtBit;
     }
 
