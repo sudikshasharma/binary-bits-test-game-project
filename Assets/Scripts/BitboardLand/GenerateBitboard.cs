@@ -21,7 +21,7 @@ public class GenerateBitboard : MonoBehaviour
                 tile[i * 8 + j] = newTile;
                 if (newTile.tag == "Dirt")
                 {
-                    SetBitBoard(dirtBitBoard, i, j);
+                    dirtBitBoard = SetBitBoard(dirtBitBoard, i, j);
                 }
             }
         }
@@ -38,8 +38,12 @@ public class GenerateBitboard : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit))
             {
-                GameObject houseObj = Instantiate(house, new Vector3(hit.collider.gameObject.transform.position.x, 0, hit.collider.gameObject.transform.position.z), Quaternion.identity);
-                SetBitBoard(houseBitBoard, (int)hit.collider.gameObject.transform.position.x, (int)hit.collider.gameObject.transform.position.z);
+                if (GetCellStateDirt(dirtBitBoard & (~treeBitBoard), (int)hit.collider.gameObject.transform.position.x, (int)hit.collider.gameObject.transform.position.z))
+                {
+                    GameObject houseObj = Instantiate(house, new Vector3(hit.collider.gameObject.transform.position.x, 0, hit.collider.gameObject.transform.position.z), Quaternion.identity);
+                    houseBitBoard = SetBitBoard(houseBitBoard, (int)hit.collider.gameObject.transform.position.x, (int)hit.collider.gameObject.transform.position.z);
+
+                }
             }
         }
     }
@@ -61,24 +65,24 @@ public class GenerateBitboard : MonoBehaviour
     {
         int row = UnityEngine.Random.Range(0, 8);
         int col = UnityEngine.Random.Range(0, 8);
-        if (GetCellStateDirt(row, col))
+        if (GetCellStateDirt((dirtBitBoard & (~houseBitBoard)), row, col))
         {
             GameObject treeObj = Instantiate(tree, new Vector3(row, 0, col), Quaternion.identity);
             treeObj.transform.parent = tile[row * 8 + col].transform;
-            SetBitBoard(treeBitBoard, row, col);
+            treeBitBoard = SetBitBoard(treeBitBoard, row, col);
         }
     }
 
-    bool GetCellStateDirt(int row, int col)
+    bool GetCellStateDirt(long bitBoard, int row, int col)
     {
         long dirtBit = 1L << (row * 8 + col);
-        return ((dirtBitBoard & dirtBit) != 0);
+        return ((bitBoard & dirtBit) != 0);
     }
 
-    void SetBitBoard(long bitBoard, int row, int col)
+    long SetBitBoard(long bitBoard, int row, int col)
     {
         long dirtBit = 1L << (row * 8 + col);
-        bitBoard |= dirtBit;
+        return (bitBoard |= dirtBit);
     }
 
     void PrintDirtbitBoard()
