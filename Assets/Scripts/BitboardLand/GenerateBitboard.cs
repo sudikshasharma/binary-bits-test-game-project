@@ -5,8 +5,11 @@ public class GenerateBitboard : MonoBehaviour
 {
     public GameObject[] tiles;
     public GameObject tree;
+    public GameObject house;
     GameObject[] tile;
     long dirtBitBoard = 0;
+    long treeBitBoard = 0;
+    long houseBitBoard = 0;
     void Start()
     {
         tile = new GameObject[64];
@@ -18,13 +21,27 @@ public class GenerateBitboard : MonoBehaviour
                 tile[i * 8 + j] = newTile;
                 if (newTile.tag == "Dirt")
                 {
-                    SetDirtBitBoard(i, j);
+                    SetBitBoard(dirtBitBoard, i, j);
                 }
             }
         }
         PrintDirtbitBoard();
         Debug.Log("Number of Dirt Tiles : " + CountDirtTile());
         InvokeRepeating("PlantTree", 1, 1);   // Looks for dirt time after every 1 second and plant tree on it if found
+    }
+
+    void Update()
+    {
+        RaycastHit hit;
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (Physics.Raycast(ray, out hit))
+            {
+                GameObject houseObj = Instantiate(house, new Vector3(hit.collider.gameObject.transform.position.x, 0, hit.collider.gameObject.transform.position.z), Quaternion.identity);
+                SetBitBoard(houseBitBoard, (int)hit.collider.gameObject.transform.position.x, (int)hit.collider.gameObject.transform.position.z);
+            }
+        }
     }
 
     int CountDirtTile()
@@ -48,6 +65,7 @@ public class GenerateBitboard : MonoBehaviour
         {
             GameObject treeObj = Instantiate(tree, new Vector3(row, 0, col), Quaternion.identity);
             treeObj.transform.parent = tile[row * 8 + col].transform;
+            SetBitBoard(treeBitBoard, row, col);
         }
     }
 
@@ -57,10 +75,10 @@ public class GenerateBitboard : MonoBehaviour
         return ((dirtBitBoard & dirtBit) != 0);
     }
 
-    void SetDirtBitBoard(int row, int col)
+    void SetBitBoard(long bitBoard, int row, int col)
     {
         long dirtBit = 1L << (row * 8 + col);
-        dirtBitBoard |= dirtBit;
+        bitBoard |= dirtBit;
     }
 
     void PrintDirtbitBoard()
