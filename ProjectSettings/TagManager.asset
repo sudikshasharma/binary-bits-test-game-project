@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - MAGIC
+  - CHARISMA
+  - FLY
+  - INTELLIGENCE
+  - NOMAGIC
+  - NOCHARISMA
+  - NOFLY
+  - NOINTELLIGENCE
+  - ADDALL
+  - PASSAGE
+  - GOLDENK
+  - REMOVEALL
+  - MAGICK
+  - CHARISMAK
+  - FLYK
+  - INTELLIGENCEK
+  - ANTIMAGIC
+  - INVISIBLE
+  - REMOVE
+  - ADD
+  - RESET
+  - MAGIC_DOOR
+  - CUBE
+  - SPHERE
+  - CAPSULE
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - CUBE
+  - SPHERE
+  - CAPSULE
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
